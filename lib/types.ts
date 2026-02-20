@@ -27,8 +27,8 @@ export type Product = {
   stock_count: number
   size_options: string[] | null
   colour_hex: string | null
-  image_url: string | null
   featured: boolean
+  image_url: string | null
   created_at: string
 }
 

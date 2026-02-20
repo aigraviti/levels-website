@@ -101,14 +101,17 @@ export default function MerchClient({ products }: { products: Product[] }) {
               onMouseEnter={e => { e.currentTarget.style.borderColor = lvlColor + '50'; e.currentTarget.style.transform = 'translateY(-4px)' }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)' }}
             >
-              {/* Product image placeholder */}
+              {/* Product image */}
               <div style={{
                 height: '200px',
                 background: `linear-gradient(135deg, ${p.colour_hex ?? '#1A1A22'} 0%, ${lvlColor}22 100%)`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '64px', position: 'relative',
+                fontSize: '64px', position: 'relative', overflow: 'hidden',
               }}>
-                <span style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }}>{catIcons[p.category] ?? '📦'}</span>
+                {p.image_url
+                  ? <img src={p.image_url} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  : <span style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }}>{catIcons[p.category] ?? '📦'}</span>
+                }
                 {/* Level badge */}
                 {p.level_association && (
                   <div style={{
