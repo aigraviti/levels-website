@@ -33,8 +33,8 @@ const cols = [
 export default function Footer() {
   return (
     <footer style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px 40px 40px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: '48px', marginBottom: '64px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '64px var(--px) 40px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-footer)', gap: 'var(--gap-footer)', marginBottom: '64px' }}>
           {/* Brand col */}
           <div>
             <div style={{

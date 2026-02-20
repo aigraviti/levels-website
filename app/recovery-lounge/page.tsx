@@ -28,7 +28,7 @@ export default function RecoveryLoungePage() {
         background: '#050508',
         minHeight: '100vh',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        padding: '100px 40px',
+        padding: '100px var(--px)',
         position: 'relative', overflow: 'hidden',
       }}>
         {/* Purple glow */}
@@ -129,7 +129,7 @@ export default function RecoveryLoungePage() {
 
       {/* Lounge header */}
       <div style={{
-        padding: '80px 40px 60px', textAlign: 'center',
+        padding: '80px var(--px) 60px', textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
@@ -158,7 +158,7 @@ export default function RecoveryLoungePage() {
       </div>
 
       {/* Products */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px 100px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--px) 100px' }}>
         {loading && (
           <div style={{ textAlign: 'center', padding: '80px 0', color: '#606070' }}>Loading your recovery package...</div>
         )}
@@ -253,7 +253,7 @@ export default function RecoveryLoungePage() {
 
         {/* Bottom note */}
         <div style={{
-          marginTop: '64px', padding: '32px 40px',
+          marginTop: '64px', padding: '32px var(--px)',
           background: 'rgba(131,56,236,0.06)', border: '1px solid rgba(131,56,236,0.2)',
           borderRadius: '16px', textAlign: 'center',
         }}>

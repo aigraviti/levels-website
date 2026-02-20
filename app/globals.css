@@ -162,6 +162,39 @@ body {
   max-width: 1200px;
 }
 
+/* ── RESPONSIVE TOKENS ── */
+:root {
+  --px: 40px;
+  --py: 120px;
+  --cols-3: repeat(3, 1fr);
+  --cols-2: 1fr 1fr;
+  --cols-split: 1fr 1fr;
+  --gap-split: 80px;
+  --cols-footer: 2fr 1fr 1fr 1fr;
+  --gap-footer: 48px;
+}
+
+/* Form row (first+last name side by side) */
+.r-form-row { display: flex; gap: 12px; }
+
+@media (max-width: 768px) {
+  :root {
+    --px: 20px;
+    --py: 72px;
+    --cols-3: 1fr;
+    --cols-2: 1fr;
+    --cols-split: 1fr;
+    --gap-split: 40px;
+    --cols-footer: 1fr 1fr;
+    --gap-footer: 28px;
+  }
+  .r-form-row { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  :root { --cols-footer: 1fr; }
+}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }

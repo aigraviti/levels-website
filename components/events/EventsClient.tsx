@@ -43,7 +43,7 @@ export default function EventsClient({ events }: { events: Event[] }) {
 
   return (
     <>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 40px 100px' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--px) 100px' }}>
         {/* City filter */}
         <div style={{ display: 'flex', gap: '8px', marginBottom: '48px', flexWrap: 'wrap' }}>
           {CITIES.map(c => (
@@ -214,7 +214,7 @@ export default function EventsClient({ events }: { events: Event[] }) {
                 </div>
 
                 <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                  <div style={{ display: 'flex', gap: '12px' }}>
+                  <div className="r-form-row">
                     <input required placeholder="First name" value={form.first_name}
                       onChange={e => setForm(f => ({ ...f, first_name: e.target.value }))}
                       style={inputStyle} />

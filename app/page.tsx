@@ -35,7 +35,7 @@ export default function HomePage() {
         display: 'flex', flexDirection: 'column',
         justifyContent: 'center', alignItems: 'center',
         textAlign: 'center',
-        padding: '120px 40px 80px',
+        padding: '120px var(--px) 80px',
         position: 'relative', overflow: 'hidden',
       }}>
         {/* Glow orbs */}
@@ -140,7 +140,7 @@ export default function HomePage() {
       <div className="divider" />
 
       {/* ── THE PROBLEM ── */}
-      <section style={{ padding: '120px 40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="section-label">The Opportunity</div>
         <h2 style={{
           fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
@@ -153,8 +153,8 @@ export default function HomePage() {
         </p>
 
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px',
-        }} className="grid-cols-1 md:grid-cols-3">
+          display: 'grid', gridTemplateColumns: 'var(--cols-3)', gap: '20px',
+        }}>
           {problems.map(p => (
             <div key={p.title} className="card card-hover" style={{ padding: '36px 28px', position: 'relative', overflow: 'hidden' }}
               onMouseEnter={e => {
@@ -184,7 +184,7 @@ export default function HomePage() {
       <div className="divider" />
 
       {/* ── THE 5 LEVELS ── */}
-      <section style={{ padding: '120px 40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="section-label">The Format</div>
         <h2 style={{
           fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
@@ -197,16 +197,17 @@ export default function HomePage() {
         </p>
 
         {/* Level blocks */}
+        <div style={{ overflowX: 'auto', marginBottom: '48px', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}>
         <div style={{
           display: 'flex', borderRadius: '20px', overflow: 'hidden',
-          border: '1px solid var(--border)', marginBottom: '48px',
+          border: '1px solid var(--border)', minWidth: '560px',
         }}>
-          {LEVEL_DATA.map(lvl => (
+          {LEVEL_DATA.map((lvl, i) => (
             <div key={lvl.num}
               style={{
-                flex: 1, padding: '40px 20px', textAlign: 'center',
-                background: lvl.bg, borderRight: '1px solid var(--border)',
-                cursor: 'default', transition: 'transform 0.3s, box-shadow 0.3s',
+                flex: '0 0 20%', padding: '32px 16px', textAlign: 'center',
+                background: lvl.bg, borderRight: i < 4 ? '1px solid var(--border)' : 'none',
+                cursor: 'default', transition: 'transform 0.3s, box-shadow 0.3s', minWidth: '130px',
               }}
               onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.03)'; e.currentTarget.style.zIndex = '2'; e.currentTarget.style.boxShadow = `0 0 32px ${lvl.color}22` }}
               onMouseLeave={e => { e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.zIndex = '1'; e.currentTarget.style.boxShadow = 'none' }}
@@ -231,9 +232,10 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+        </div>{/* end scroll wrapper */}
 
         {/* Features grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-2)', gap: '20px' }}>
           {features.map(f => (
             <div key={f.title} className="card" style={{ padding: '28px', display: 'flex', gap: '18px', transition: 'border-color 0.3s' }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(230,57,70,0.25)')}
@@ -256,7 +258,7 @@ export default function HomePage() {
       <div className="divider" />
 
       {/* ── THE EXPERIENCE ── */}
-      <section style={{ padding: '120px 40px', maxWidth: '1200px', margin: '0 auto' }}>
+      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="section-label">The Experience</div>
         <h2 style={{
           fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
@@ -299,8 +301,8 @@ export default function HomePage() {
       <div className="divider" />
 
       {/* ── CONTENT ERA ── */}
-      <section style={{ padding: '120px 40px', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'center' }}>
+      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-split)', gap: 'var(--gap-split)', alignItems: 'center' }}>
           <div>
             <div className="section-label">The Growth Engine</div>
             <h2 style={{
@@ -377,7 +379,7 @@ export default function HomePage() {
 
       {/* ── CTA ── */}
       <section style={{
-        padding: '120px 40px', textAlign: 'center', position: 'relative', overflow: 'hidden',
+        padding: 'var(--py) var(--px)', textAlign: 'center', position: 'relative', overflow: 'hidden',
       }}>
         <div style={{
           position: 'absolute', inset: 0,

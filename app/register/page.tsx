@@ -53,8 +53,8 @@ export default function RegisterPage() {
 
   return (
     <div style={{ background: 'var(--bg)', paddingTop: '68px' }}>
-      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '80px 40px 120px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+      <div style={{ maxWidth: '900px', margin: '0 auto', padding: '80px var(--px) 120px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-split)', gap: 'var(--gap-split)', alignItems: 'start' }}>
 
           {/* Left: copy */}
           <div>

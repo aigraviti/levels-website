@@ -27,7 +27,7 @@ export default function Nav() {
     <>
       <nav style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '0 40px', height: '68px',
+        padding: '0 var(--px)', height: '68px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         background: scrolled ? 'rgba(8,8,12,0.92)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
@@ -35,17 +35,21 @@ export default function Nav() {
         transition: 'all 0.4s ease',
       }}>
         {/* Logo */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-          <img
-            src="/images/levels-logo-horizontal.png"
-            alt="LEVELS"
-            style={{ height: '32px', width: 'auto' }}
-          />
+        <Link href="/" style={{ textDecoration: 'none' }}>
+          <span style={{
+            fontFamily: 'var(--font-bebas, Bebas Neue)',
+            fontSize: '28px',
+            letterSpacing: '6px',
+            background: 'var(--gradient-hero)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+          }}>LEVELS</span>
         </Link>
 
         {/* Desktop links */}
         <ul style={{
-          display: 'flex', gap: '32px', listStyle: 'none', alignItems: 'center',
+          gap: '32px', listStyle: 'none', alignItems: 'center',
         }} className="hidden md:flex">
           {links.map(l => (
             <li key={l.href}>

@@ -16,7 +16,7 @@ export default async function MerchPage() {
   return (
     <div style={{ background: 'var(--bg)', paddingTop: '68px' }}>
       <div style={{
-        padding: '80px 40px 60px',
+        padding: '80px var(--px) 60px',
         textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>

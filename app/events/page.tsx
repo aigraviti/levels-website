@@ -17,7 +17,7 @@ export default async function EventsPage() {
     <div style={{ background: 'var(--bg)', paddingTop: '68px' }}>
       {/* Page hero */}
       <div style={{
-        padding: '80px 40px 60px',
+        padding: '80px var(--px) 60px',
         textAlign: 'center',
         position: 'relative', overflow: 'hidden',
       }}>
