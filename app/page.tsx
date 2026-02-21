@@ -85,14 +85,14 @@ export default function HomePage() {
           <Image
             src="/images/Levels landing page Logo.png"
             alt="LEVELS Logo"
-            width={500}
-            height={150}
+            width={1024}
+            height={1024}
             priority
             style={{
-              width: 'clamp(200px, 40vw, 500px)',
+              width: 'clamp(180px, 28vw, 320px)',
               height: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 30px rgba(230,57,70,0.25)) drop-shadow(0 0 60px rgba(46,196,182,0.12))',
+              filter: 'drop-shadow(0 0 24px rgba(230,57,70,0.35)) drop-shadow(0 0 48px rgba(46,196,182,0.18))',
               position: 'relative',
             }}
           />
