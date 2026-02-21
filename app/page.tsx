@@ -2,27 +2,33 @@
 import Link from 'next/link'
 import { LEVEL_DATA } from '@/lib/types'
 
-const problems = [
-  { icon: '⏱️', title: 'Too Long', desc: 'Hyrox takes 60–90+ minutes. Modern attention spans and busy lives demand shorter, more intense formats that still deliver meaningful achievement.' },
-  { icon: '😰', title: 'Fear of Failure', desc: 'Time-based events create losers. Finishing last or DNF\'ing is embarrassing, not shareable. Participants need to leave feeling successful, regardless of fitness level.' },
-  { icon: '📵', title: 'Not Content-Ready', desc: 'Existing events produce one shareable moment: the finish line. Influencers need multiple content beats — visual milestones, celebratory moments, aesthetic backdrops throughout.' },
-  { icon: '🔄', title: 'No Repeat Loop', desc: 'Improving a Hyrox time from 1:32 to 1:28 doesn\'t feel like a breakthrough. There\'s no clear progression system that drives repeat purchases and long-term engagement.' },
-  { icon: '👕', title: 'Weak Merch Identity', desc: '"I did Hyrox" is generic. A level-based identity system (like karate belts) creates status-signalling merchandise that people genuinely want to wear and buy repeatedly.' },
-  { icon: '🏢', title: 'Hard to Scale', desc: 'Large-format events need massive venues and complex logistics. The market needs a format that works in a local gym on Tuesday night AND a stadium on Saturday.' },
+const features = [
+  { icon: '🎯', title: 'Clear Goals, No Guesswork', desc: 'Every level has defined benchmarks. You know exactly what you\'re working towards — and exactly what it feels like when you crush it.' },
+  { icon: '🏋️', title: 'Movements You Already Train', desc: 'Rowers, sleds, kettlebells, assault bikes, wall balls. Standard gym equipment. If you train, you\'re already preparing for this.' },
+  { icon: '⚡', title: 'Level-Up Celebrations', desc: 'Each level completion triggers a designed moment — lights, music, your name on screen. Every win is loud, felt, and real.' },
+  { icon: '🤝', title: 'Solo, Pairs, or Teams', desc: 'Take on the levels alone, with a training partner, or as a crew of four. Every format celebrates every athlete\'s individual achievement.' },
 ]
 
-const features = [
-  { icon: '🎮', title: 'Gaming Psychology', desc: 'The level-up mechanic is the most addictive loop in gaming history. Clear milestones, visible progression, and the pull of "one more level" drives repeat participation like nothing else.' },
-  { icon: '🏋️', title: 'Gym-Transferable Movements', desc: 'Every station uses equipment found in standard gyms — rowers, sleds, kettlebells, assault bikes, wall balls. No Olympic lifting. Your audience is already training for this.' },
-  { icon: '⚡', title: 'Level-Up Moments', desc: 'Each level transition is a designed celebration — lights, sound, your name on screen. Multiple filmable peak moments per participant, not just one finish line.' },
-  { icon: '🤝', title: 'Doubles & Team Formats', desc: 'Pairs and teams of four tackle levels together. The social element amplified with shared level achievements and a format that celebrates every participant.' },
+const eventDay = [
+  { icon: '🚪', title: 'Arrive & Get Ready', desc: 'Pick up your wristband, walk the course, meet your fellow athletes. The atmosphere is electric before you\'ve even touched a barbell.' },
+  { icon: '🔥', title: 'Warm-Up & Briefing', desc: 'Your coach walks you through every station. No surprises — just clarity and confidence heading into your first level attempt.' },
+  { icon: '🎯', title: 'Attack Your First Level', desc: 'Work through each station at your power, your pace. Every rep counts toward one clear goal: completing the level.' },
+  { icon: '🎉', title: 'The Level-Up Moment', desc: 'Lights shift. Music drops. Your name goes up on screen. The entire room erupts. This is the moment you\'ll talk about for months.' },
+  { icon: '🏅', title: 'Collect Your Achievement', desc: 'Walk away with your level result and a physical medal — tangible proof of exactly what you accomplished on the day.' },
+  { icon: '📲', title: 'Share It Instantly', desc: 'Your personalised result card is ready the moment you finish. Designed to look stunning on stories. Level 3 athlete. That\'s your identity now.' },
 ]
 
 const journey = [
-  { label: 'Pre-Event', title: 'Set Your Target', desc: 'The app\'s benchmark predictor estimates your level from training data. You set a personal target, reframing the event from "survive it" to "achieve my goal."' },
-  { label: 'Event Day', title: 'Level-Up Moments', desc: 'Each level completion triggers a designed celebration — music shift, LED colour change, your name displayed. Spectators cheer every level-up because progress is visible to everyone.' },
-  { label: 'Post-Event', title: 'Shareable Achievement', desc: 'Instant digital results card designed for social sharing — your level, station times, and a graphic that looks stunning on stories. Level-specific physical medal.' },
-  { label: 'The Hook', title: 'Chase the Next Level', desc: 'Within 24 hours, a personalised "Next Level" training plan hits the app. Your level-specific merch is available. The countdown to the next event begins. The loop closes.' },
+  { label: 'Before You Arrive', title: 'Set Your Sights', desc: 'Every benchmark is published. You can train specifically for your goal level and arrive on event day knowing exactly what you\'re chasing.' },
+  { label: 'On the Floor', title: 'Feel the Energy', desc: 'Each level transition is a designed celebration — music shift, LED colour change, your name on screen. Spectators cheer every single level-up because progress is visible to everyone.' },
+  { label: 'Your Result', title: 'Take Home an Achievement', desc: 'Your instant digital results card is built to share — your level, station times, and a graphic that looks stunning on stories. Plus a level-specific physical medal.' },
+  { label: 'What\'s Next', title: 'Chase the Next Level', desc: 'Within 24 hours, a personalised training plan arrives for your next target. Level-specific merch drops. The next event is on the calendar. The journey never stops.' },
+]
+
+const testimonials = [
+  { name: 'James K.', level: 'Level 3 — Competitor', location: 'Auckland', quote: 'I\'ve run marathons and done CrossFit comps. Nothing has given me a result I actually wanted to put on my wall — until LEVELS. Level 3 first event, chasing 4 next month.' },
+  { name: 'Mia T.', level: 'Level 4 — Elite', location: 'Wellington', quote: 'When I hit Level 4 and my name came up on the board, my whole gym erupted. My coach cried. I cried. There\'s nothing like that moment — it felt like I\'d actually won something.' },
+  { name: 'Tom R.', level: 'Level 2 — Foundation', location: 'Christchurch', quote: 'I was terrified of finishing last at a fitness event. At LEVELS I didn\'t finish last — I achieved Level 2. That framing changed everything for me. I\'m already registered for my next one.' },
 ]
 
 export default function HomePage() {
@@ -86,8 +92,8 @@ export default function HomePage() {
           position: 'relative', zIndex: 1,
           animationDelay: '0.2s',
         }}>
-          The world&apos;s first achievement-based fitness sport. Not a race. A progression system.{' '}
-          <span style={{ color: 'var(--text)' }}>Powered by gaming psychology, built for the content era.</span>
+          The fitness event where everyone leaves with an achievement.{' '}
+          <span style={{ color: 'var(--text)' }}>Five levels. One unforgettable day. Your name on the board.</span>
         </p>
 
         {/* Stats */}
@@ -97,9 +103,9 @@ export default function HomePage() {
           flexWrap: 'wrap', justifyContent: 'center',
         }}>
           {[
-            { val: '$4.8B', label: 'Global Fitness Event Market' },
-            { val: '340%', label: 'Hyrox Growth (2021–2025)' },
-            { val: '5', label: 'Levels of Achievement' },
+            { val: '5', label: 'Levels to Conquer' },
+            { val: '30 MIN', label: 'Average Level Duration' },
+            { val: '100%', label: 'Athletes Leave with an Achievement' },
           ].map(s => (
             <div key={s.val} style={{ textAlign: 'center' }}>
               <div style={{
@@ -120,8 +126,8 @@ export default function HomePage() {
           position: 'relative', zIndex: 1, animationDelay: '0.45s',
           flexWrap: 'wrap', justifyContent: 'center',
         }}>
-          <Link href="/events" className="btn-primary">Find Your Level →</Link>
-          <Link href="/format" className="btn-ghost">How It Works</Link>
+          <Link href="/events" className="btn-primary">Find Your Next Event →</Link>
+          <Link href="/register" className="btn-ghost">Register Free</Link>
         </div>
 
         {/* Scroll indicator */}
@@ -139,50 +145,6 @@ export default function HomePage() {
 
       <div className="divider" />
 
-      {/* ── THE PROBLEM ── */}
-      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
-        <div className="section-label">The Opportunity</div>
-        <h2 style={{
-          fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
-          letterSpacing: '3px', lineHeight: 1.05, marginBottom: '20px',
-        }}>
-          Fitness Events Are Broken<br />for the Modern Consumer
-        </h2>
-        <p style={{ color: 'var(--text-2)', fontSize: '17px', maxWidth: '640px', lineHeight: 1.8, marginBottom: '56px' }}>
-          The average gym-goer wants to compete, achieve, and share — but existing formats leave massive gaps. LEVELS is designed to fill every one of them.
-        </p>
-
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'var(--cols-3)', gap: '20px',
-        }}>
-          {problems.map(p => (
-            <div key={p.title} className="card card-hover" style={{ padding: '36px 28px', position: 'relative', overflow: 'hidden' }}
-              onMouseEnter={e => {
-                const el = e.currentTarget; el.style.borderColor = 'rgba(230,57,70,0.3)'; el.style.transform = 'translateY(-4px)'
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget; el.style.borderColor = 'var(--border)'; el.style.transform = 'translateY(0)'
-              }}
-            >
-              <div style={{
-                position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
-                background: 'var(--gradient-hero)', opacity: 0, transition: 'opacity 0.3s',
-              }} className="card-top-line" />
-              <div style={{
-                width: '44px', height: '44px', borderRadius: '10px',
-                background: 'rgba(230,57,70,0.1)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: '20px', marginBottom: '20px',
-              }}>{p.icon}</div>
-              <h3 style={{ fontSize: '17px', fontWeight: 600, marginBottom: '10px', fontFamily: 'var(--font-outfit)' }}>{p.title}</h3>
-              <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <div className="divider" />
-
       {/* ── THE 5 LEVELS ── */}
       <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="section-label">The Format</div>
@@ -190,10 +152,10 @@ export default function HomePage() {
           fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
           letterSpacing: '3px', lineHeight: 1.05, marginBottom: '20px',
         }}>
-          Progressive Achievement,<br />Not Competitive Racing
+          Five Levels.<br />Your Progression.
         </h2>
         <p style={{ color: 'var(--text-2)', fontSize: '17px', maxWidth: '640px', lineHeight: 1.8, marginBottom: '56px' }}>
-          Every person finishes at their level — there&apos;s no DNF, no &quot;coming last.&quot; You&apos;re a Level 3 athlete. She&apos;s a Level 4. It&apos;s identity, not ranking.
+          Every athlete finishes at their level — there&apos;s no DNF, no coming last. You&apos;re a Level 3 athlete. She&apos;s a Level 4. It&apos;s your identity, not a ranking.
         </p>
 
         {/* Level blocks */}
@@ -257,6 +219,55 @@ export default function HomePage() {
 
       <div className="divider" />
 
+      {/* ── YOUR EVENT DAY ── */}
+      <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
+        <div className="section-label">Your Event Day</div>
+        <h2 style={{
+          fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
+          letterSpacing: '3px', lineHeight: 1.05, marginBottom: '20px',
+        }}>
+          From First Arrival<br />to Final Achievement
+        </h2>
+        <p style={{ color: 'var(--text-2)', fontSize: '17px', maxWidth: '640px', lineHeight: 1.8, marginBottom: '56px' }}>
+          Every moment of your LEVELS event is designed to feel incredible — from the warm-up buzz to the medal in your hand. Here&apos;s what to expect.
+        </p>
+
+        <div style={{
+          display: 'grid', gridTemplateColumns: 'var(--cols-3)', gap: '20px',
+        }}>
+          {eventDay.map((step, i) => (
+            <div key={step.title} className="card card-hover" style={{ padding: '36px 28px', position: 'relative', overflow: 'hidden' }}
+              onMouseEnter={e => {
+                const el = e.currentTarget; el.style.borderColor = 'rgba(230,57,70,0.3)'; el.style.transform = 'translateY(-4px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget; el.style.borderColor = 'var(--border)'; el.style.transform = 'translateY(0)'
+              }}
+            >
+              <div style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+                background: 'var(--gradient-hero)', opacity: 0, transition: 'opacity 0.3s',
+              }} className="card-top-line" />
+              <div style={{
+                position: 'absolute', top: '20px', right: '20px',
+                fontFamily: 'var(--font-mono)', fontSize: '10px', letterSpacing: '2px',
+                color: 'var(--text-3)', opacity: 0.5,
+              }}>0{i + 1}</div>
+              <div style={{
+                width: '44px', height: '44px', borderRadius: '10px',
+                background: 'rgba(230,57,70,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: '20px', marginBottom: '20px',
+              }}>{step.icon}</div>
+              <h3 style={{ fontSize: '17px', fontWeight: 600, marginBottom: '10px', fontFamily: 'var(--font-outfit)' }}>{step.title}</h3>
+              <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7 }}>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div className="divider" />
+
       {/* ── THE EXPERIENCE ── */}
       <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div className="section-label">The Experience</div>
@@ -264,7 +275,7 @@ export default function HomePage() {
           fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 64px)',
           letterSpacing: '3px', lineHeight: 1.05, marginBottom: '20px',
         }}>
-          Nobody Leaves<br />Feeling Like They Failed
+          You Will Leave<br />Wanting More
         </h2>
         <p style={{ color: 'var(--text-2)', fontSize: '17px', maxWidth: '640px', lineHeight: 1.8, marginBottom: '64px' }}>
           Every touchpoint is designed to create achievement, community, and the irresistible pull of &quot;next time, I&apos;ll go higher.&quot;
@@ -300,24 +311,24 @@ export default function HomePage() {
 
       <div className="divider" />
 
-      {/* ── CONTENT ERA ── */}
+      {/* ── SHARE YOUR JOURNEY ── */}
       <section style={{ padding: 'var(--py) var(--px)', maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-split)', gap: 'var(--gap-split)', alignItems: 'center' }}>
           <div>
-            <div className="section-label">The Growth Engine</div>
+            <div className="section-label">Built to Celebrate You</div>
             <h2 style={{
               fontFamily: 'var(--font-bebas)', fontSize: 'clamp(40px, 5vw, 60px)',
               letterSpacing: '3px', lineHeight: 1.05, marginBottom: '20px',
-            }}>Built for the<br />Content Era</h2>
+            }}>Share Your<br />Achievement</h2>
             <p style={{ color: 'var(--text-2)', fontSize: '16px', lineHeight: 1.8, marginBottom: '32px' }}>
-              LEVELS doesn&apos;t need influencers — it makes everyone who participates into a content creator. Every design decision optimises for organic sharing.
+              Your result is something to be proud of. Every element of LEVELS is designed so that sharing your achievement feels natural, exciting, and worth celebrating.
             </p>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0' }}>
               {[
-                ['💪', 'You Look Good Doing It', 'Stations are designed for athletic aesthetics — sled pushes, dynamic movements. Influencers look strong, not destroyed.'],
-                ['🎬', '5 Content Beats Per Event', 'Each level-up is a filmable celebration. One event generates an entire story arc.'],
-                ['🏆', 'Instantly Legible Achievement', '"I hit Level 4!" needs zero context. Levels are universal social currency.'],
-                ['🛡️', 'Ego Protection', 'No influencer risks embarrassment. A Level 3 result is an achievement, not a failure.'],
+                ['💪', 'You Look Like an Athlete', 'Stations are built for dynamic, powerful movement. You\'ll look — and feel — incredible doing this.'],
+                ['🎬', 'Multiple Peak Moments', 'Every level-up is its own celebration. One event, multiple unforgettable moments to relive.'],
+                ['🏆', 'A Result Worth Sharing', '"I hit Level 4!" says everything. Levels are instantly understood — no context required.'],
+                ['🎖️', 'Every Result is an Achievement', 'Level 2 is an achievement. Level 5 is a legend. Every athlete walks away with something real.'],
               ].map(([icon, title, desc]) => (
                 <li key={title as string} style={{
                   display: 'flex', gap: '16px', padding: '18px 0',
@@ -337,40 +348,32 @@ export default function HomePage() {
             </ul>
           </div>
 
-          {/* Mock social post */}
-          <div className="card" style={{ padding: '32px', position: 'relative', overflow: 'hidden' }}>
-            <div style={{
-              position: 'absolute', top: '-40%', right: '-40%',
-              width: '80%', height: '80%',
-              background: 'radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 60%)',
-            }} />
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
-                <div style={{
-                  width: '40px', height: '40px', borderRadius: '50%',
-                  background: 'var(--gradient-hero)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 700, color: 'white', fontSize: '16px',
-                }}>S</div>
-                <div>
-                  <div style={{ fontWeight: 600, fontSize: '14px' }}>sarah_lifts</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-3)' }}>@sarah_lifts · Sponsored</div>
+          {/* Athlete testimonials */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {testimonials.map((t, i) => {
+              const levelColors = ['var(--gold)', 'var(--red)', 'var(--teal)']
+              return (
+                <div key={t.name} className="card" style={{ padding: '24px', position: 'relative', overflow: 'hidden', transition: 'border-color 0.3s' }}
+                  onMouseEnter={e => (e.currentTarget.style.borderColor = levelColors[i] + '50')}
+                  onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
+                >
+                  <div style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, height: '2px',
+                    background: levelColors[i], opacity: 0.6,
+                  }} />
+                  <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.7, marginBottom: '16px', fontStyle: 'italic' }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div>
+                      <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text)' }}>{t.name}</div>
+                      <div style={{ fontSize: '11px', color: levelColors[i], fontFamily: 'var(--font-mono)', letterSpacing: '1px', marginTop: '2px' }}>{t.level}</div>
+                    </div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '1px' }}>{t.location}</div>
+                  </div>
                 </div>
-              </div>
-              <div style={{
-                background: 'linear-gradient(135deg, var(--red) 0%, #FF6B6B 100%)',
-                borderRadius: '14px', padding: '40px 24px', textAlign: 'center', marginBottom: '16px',
-              }}>
-                <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '72px', letterSpacing: '4px', color: 'white', lineHeight: 1 }}>LEVEL 4</div>
-                <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', marginTop: '6px' }}>ELITE — Auckland Event 2026</div>
-              </div>
-              <p style={{ fontSize: '14px', color: 'var(--text-2)', lineHeight: 1.65 }}>
-                <strong style={{ color: 'var(--text)' }}>sarah_lifts</strong> Three months ago I was Level 2. Today I hit Level 4 ELITE. Actual tears at the level-up station 😭🔥 Coming for that Level 5 next quarter. Use code SARAH20 for 20% off entry 💪 <span style={{ color: 'var(--red)' }}>#LEVELS #LevelUp</span>
-              </p>
-              <div style={{ display: 'flex', gap: '20px', marginTop: '14px', fontSize: '13px', color: 'var(--text-3)' }}>
-                <span>♡ 12,847</span><span>💬 943</span><span>↗ 2,106</span>
-              </div>
-            </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -391,15 +394,15 @@ export default function HomePage() {
             fontFamily: 'var(--font-bebas)', fontSize: 'clamp(48px, 7vw, 88px)',
             letterSpacing: '4px', lineHeight: 1.05, marginBottom: '16px',
           }}>
-            The Future of Fitness<br />
-            <span className="text-gradient">Has Levels</span>
+            Your Next Level<br />
+            <span className="text-gradient">Starts Here</span>
           </h2>
           <p style={{ fontSize: '18px', color: 'var(--text-2)', maxWidth: '480px', margin: '0 auto 40px', lineHeight: 1.7 }}>
-            Join thousands of athletes across New Zealand finding their level. Your progression starts now.
+            Find an event near you, register your interest, and start training for the level you want to hit. New Zealand&apos;s most exciting fitness event is waiting.
           </p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href="/events" className="btn-primary" style={{ fontSize: '14px' }}>View Upcoming Events →</Link>
-            <Link href="/register" className="btn-ghost">Register Interest</Link>
+            <Link href="/events" className="btn-primary" style={{ fontSize: '14px' }}>Find Your Next Event →</Link>
+            <Link href="/register" className="btn-ghost">Register Now — It&apos;s Free</Link>
           </div>
         </div>
       </section>
