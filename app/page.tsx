@@ -117,6 +117,7 @@ export default function HomePage() {
           letterSpacing: '8px',
           position: 'relative', zIndex: 1,
           animationDelay: '0.1s',
+          display: 'none',
         }}>LEVELS</h1>
 
         <p className="animate-fade-up" style={{
