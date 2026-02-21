@@ -70,7 +70,7 @@ export default function RecoveryLoungePage() {
           {/* Teaser grid (blurred) */}
           <div style={{ position: 'relative', marginBottom: '40px' }}>
             <div style={{
-              display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px',
+              display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(140px, 100%), 1fr))', gap: '10px',
               filter: 'blur(8px)', opacity: 0.4, pointerEvents: 'none',
               userSelect: 'none',
             }}>
@@ -162,7 +162,7 @@ export default function RecoveryLoungePage() {
         {loading && (
           <div style={{ textAlign: 'center', padding: '80px 0', color: '#606070' }}>Loading your recovery package...</div>
         )}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(320px, 100%), 1fr))', gap: '20px' }}>
           {products.map(p => {
             const isClaimed = claimed.includes(p.id)
             return (

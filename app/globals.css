@@ -172,10 +172,17 @@ body {
   --gap-split: 80px;
   --cols-footer: 2fr 1fr 1fr 1fr;
   --gap-footer: 48px;
+  --cols-6: repeat(6, 1fr);
+  --cols-stations: repeat(3, 1fr);
+  --cols-rules: 1fr 1fr;
 }
 
 /* Form row (first+last name side by side) */
 .r-form-row { display: flex; gap: 12px; }
+.r-checkout-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* Table scroll wrapper for mobile */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
 @media (max-width: 768px) {
   :root {
@@ -187,12 +194,20 @@ body {
     --gap-split: 40px;
     --cols-footer: 1fr 1fr;
     --gap-footer: 28px;
+    --cols-6: repeat(2, 1fr);
+    --cols-stations: repeat(2, 1fr);
+    --cols-rules: 1fr;
   }
   .r-form-row { flex-direction: column; }
+  .r-checkout-row { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  :root { --cols-footer: 1fr; }
+  :root {
+    --cols-footer: 1fr;
+    --cols-6: 1fr;
+    --cols-stations: 1fr;
+  }
 }
 
 /* ── SCROLLBAR ── */

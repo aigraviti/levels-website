@@ -86,7 +86,7 @@ export default function CheckoutPage() {
           <div>
             <h2 style={{ fontFamily: 'var(--font-bebas)', fontSize: '20px', letterSpacing: '2px', marginBottom: '24px' }}>Contact Details</h2>
             <form onSubmit={handlePlace} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+              <div className="r-checkout-row">
                 <div>
                   <label style={labelStyle}>First Name</label>
                   <input required value={form.first_name} onChange={e => setForm(f => ({ ...f, first_name: e.target.value }))}

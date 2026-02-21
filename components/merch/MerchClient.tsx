@@ -78,7 +78,7 @@ export default function MerchClient({ products }: { products: Product[] }) {
       </p>
 
       {/* Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', gap: '20px' }}>
         {filtered.map(p => {
           const lvlColor = getLevelColor(p.level_association)
           const isInBag = items.some(i => i.id === p.id)

@@ -64,7 +64,7 @@ export default function FormatPage() {
     <div style={{ background: 'var(--bg)', paddingTop: '68px' }}>
 
       {/* Hero */}
-      <section style={{ padding: '80px 40px 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+      <section style={{ padding: '80px var(--px) 60px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(230,57,70,0.08) 0%, transparent 65%)', pointerEvents: 'none' }} />
         <div style={{ position: 'relative', zIndex: 1 }}>
           <div className="section-label" style={{ justifyContent: 'center', display: 'flex' }}>Official Competition Format</div>
@@ -92,14 +92,14 @@ export default function FormatPage() {
         </div>
       </section>
 
-      <div className="divider" style={{ margin: '0 40px' }} />
+      <div className="divider" style={{ margin: '0 var(--px)' }} />
 
       {/* Event Flow */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--py) var(--px)' }}>
         <div className="section-label">Event Flow</div>
         <h2 style={{ fontFamily: 'var(--font-bebas)', fontSize: 'clamp(36px, 4vw, 52px)', letterSpacing: '2px', marginBottom: '16px' }}>Athlete Journey Through the Event</h2>
         <p style={{ color: 'var(--text-2)', fontSize: '16px', marginBottom: '48px', maxWidth: '600px' }}>Athletes move through levels sequentially. Each level-up transition is a designed celebration moment.</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '4px', borderRadius: '14px', overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-6)', gap: '4px', borderRadius: '14px', overflow: 'hidden' }}>
           {[
             { time: 'T–10 min', name: 'Check-In & Warm-Up', detail: 'Wristband scan, dynamic warm-up zone, athlete briefing', color: 'rgba(46,196,182,0.08)' },
             { time: '0:00', name: 'Heat Start', detail: 'Waves of 10–20 athletes, staggered 5-min intervals', color: 'rgba(69,123,157,0.08)' },
@@ -117,14 +117,14 @@ export default function FormatPage() {
         </div>
       </section>
 
-      <div className="divider" style={{ margin: '0 40px' }} />
+      <div className="divider" style={{ margin: '0 var(--px)' }} />
 
       {/* Station Library */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--py) var(--px)' }}>
         <div className="section-label">Station Library</div>
         <h2 style={{ fontFamily: 'var(--font-bebas)', fontSize: 'clamp(36px, 4vw, 52px)', letterSpacing: '2px', marginBottom: '16px' }}>The 12-Station Pool</h2>
         <p style={{ color: 'var(--text-2)', fontSize: '16px', marginBottom: '48px', maxWidth: '640px' }}>All movements use standard gym equipment. No Olympic lifts, no gymnastics, no high-skill barriers. Every station is scalable across all five levels.</p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-stations)', gap: '14px' }}>
           {stations.map(s => (
             <div key={s.name} className="card" style={{ padding: '22px', display: 'flex', gap: '14px', transition: 'border-color 0.3s' }}
               onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--border-hover)')}
@@ -149,14 +149,14 @@ export default function FormatPage() {
         </div>
       </section>
 
-      <div className="divider" style={{ margin: '0 40px' }} />
+      <div className="divider" style={{ margin: '0 var(--px)' }} />
 
       {/* Level Detail Sections */}
       {LEVEL_DATA.map(lvl => {
         const workouts = levelWorkouts[lvl.num] ?? []
         const gate = levelGates[lvl.num as keyof typeof levelGates]
         return (
-          <section key={lvl.num} style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}>
+          <section key={lvl.num} style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--py) var(--px)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '36px' }}>
               <div style={{
                 width: '96px', height: '96px', borderRadius: '18px', flexShrink: 0,
@@ -178,28 +178,30 @@ export default function FormatPage() {
             </div>
 
             {/* Workout table */}
-            <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border)', marginBottom: '16px' }}>
-              <thead>
-                <tr style={{ background: 'var(--surface)' }}>
-                  {['#', 'Station', 'Prescription', 'Movement Standard'].map(h => (
-                    <th key={h} style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-3)', borderBottom: '1px solid var(--border)' }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {workouts.map((w, i) => (
-                  <tr key={i} style={{ transition: 'background 0.2s' }}
-                    onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.015)')}
-                    onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
-                  >
-                    <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontFamily: 'var(--font-bebas)', fontSize: '22px', letterSpacing: '1px', color: lvl.color, width: '52px' }}>{String(i + 1).padStart(2, '0')}</td>
-                    <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontWeight: 700, fontSize: '15px' }}>{w.station}</td>
-                    <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text)', whiteSpace: 'pre-line' }}>{w.rx}</td>
-                    <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.5 }}>{w.standard}</td>
+            <div className="table-scroll">
+              <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'separate', borderSpacing: 0, borderRadius: '14px', overflow: 'hidden', border: '1px solid var(--border)', marginBottom: '16px' }}>
+                <thead>
+                  <tr style={{ background: 'var(--surface)' }}>
+                    {['#', 'Station', 'Prescription', 'Movement Standard'].map(h => (
+                      <th key={h} style={{ padding: '12px 18px', textAlign: 'left', fontFamily: 'var(--font-mono)', fontSize: '10px', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--text-3)', borderBottom: '1px solid var(--border)' }}>{h}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {workouts.map((w, i) => (
+                    <tr key={i} style={{ transition: 'background 0.2s' }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.015)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontFamily: 'var(--font-bebas)', fontSize: '22px', letterSpacing: '1px', color: lvl.color, width: '52px' }}>{String(i + 1).padStart(2, '0')}</td>
+                      <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontWeight: 700, fontSize: '15px' }}>{w.station}</td>
+                      <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--text)', whiteSpace: 'pre-line' }}>{w.rx}</td>
+                      <td style={{ padding: '16px 18px', borderBottom: i < workouts.length - 1 ? '1px solid rgba(37,37,48,0.5)' : 'none', fontSize: '13px', color: 'var(--text-2)', lineHeight: 1.5 }}>{w.standard}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             {/* Gate note */}
             {gate && (
@@ -220,10 +222,10 @@ export default function FormatPage() {
       })}
 
       {/* Scoring */}
-      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: '80px 40px' }}>
+      <section style={{ maxWidth: '1200px', margin: '0 auto', padding: 'var(--py) var(--px)' }}>
         <div className="section-label">Rules & Scoring</div>
         <h2 style={{ fontFamily: 'var(--font-bebas)', fontSize: 'clamp(36px, 4vw, 52px)', letterSpacing: '2px', marginBottom: '48px' }}>Competition Standards</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'var(--cols-rules)', gap: '16px' }}>
           {[
             { title: 'SCORING SYSTEM', content: 'Your score is your highest completed level. Station times are recorded for personal benchmarking. Primary result is binary: Level Cleared or Level Attempted.', rules: ['Primary: Highest level completed (1–5)', 'Secondary: Total elapsed time across completed levels', 'Tertiary: Individual station split times', 'Tiebreaker: Total time at same level achieved'] },
             { title: 'TIME CAPS', content: 'Time caps are introduced at Level 3 and become progressively tighter. If any capped station is not completed within the cap, the athlete finishes at their previous level.', rules: ['Levels 1–2: No time caps. Complete at your own pace', 'Levels 3–5: Individual station caps enforced by judges', 'Missed cap = level not cleared, finish at previous level', 'Partial credit shown (e.g., "Level 3 + 2 stations")'] },

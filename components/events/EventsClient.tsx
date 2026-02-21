@@ -70,7 +70,7 @@ export default function EventsClient({ events }: { events: Event[] }) {
         )}
 
         {/* Event grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(340px, 100%), 1fr))', gap: '24px' }}>
           {filtered.map(ev => {
             const pct = Math.round((ev.registered_count / ev.capacity) * 100)
             const almostFull = pct >= 80
