@@ -89,7 +89,7 @@ export default function HomePage() {
             height={1024}
             priority
             style={{
-              width: 'clamp(270px, 42vw, 480px)',
+              width: 'clamp(300px, 75vw, 900px)',
               height: 'auto',
               objectFit: 'contain',
               filter: 'drop-shadow(0 0 24px rgba(230,57,70,0.35)) drop-shadow(0 0 48px rgba(46,196,182,0.18))',
