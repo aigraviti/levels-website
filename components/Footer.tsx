@@ -24,7 +24,7 @@ const cols = [
     heading: 'LEVELS',
     links: [
       { label: 'The Format', href: '/format' },
-      { label: 'Register Interest', href: '/register' },
+      { label: 'Login / Sign Up', href: '/login' },
       { label: 'Recovery Lounge', href: '/recovery-lounge' },
     ],
   },

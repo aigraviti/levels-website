@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import type { Product } from '@/lib/types'
 import { getLevelColor, formatNZD, LEVEL_DATA } from '@/lib/types'
+import { useCart } from '@/lib/cart-context'
 
 const CATS = [
   { key: 'all', label: 'All' },
@@ -13,39 +14,26 @@ const CATS = [
 
 export default function MerchClient({ products }: { products: Product[] }) {
   const [cat, setCat] = useState('all')
-  const [level, setLevel] = useState(0) // 0 = all
-  const [bagItems, setBagItems] = useState<string[]>([])
-  const [bagNotice, setBagNotice] = useState('')
+  const [level, setLevel] = useState(0)
+  const { addItem, items } = useCart()
 
-  const filtered = products.filter(p => {
-    const catMatch = cat === 'all' || p.category === cat
-    const lvlMatch = level === 0 || p.level_association === level || (level === 0 && true)
-    return catMatch && (level === 0 ? true : p.level_association === level || p.level_association === null)
-  }).filter(p => cat === 'all' ? true : p.category === cat)
-    .filter(p => level === 0 ? true : p.level_association === level)
+  const filtered = products
+    .filter(p => cat === 'all' || p.category === cat)
+    .filter(p => level === 0 || p.level_association === level)
 
   function addToBag(product: Product) {
-    setBagItems(b => [...b, product.id])
-    setBagNotice(`${product.name} added to bag`)
-    setTimeout(() => setBagNotice(''), 2800)
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image_url: product.image_url,
+      category: product.category,
+      type: 'product',
+    })
   }
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--px) 100px' }}>
-
-      {/* Bag notice */}
-      {bagNotice && (
-        <div style={{
-          position: 'fixed', bottom: '32px', right: '32px', zIndex: 300,
-          background: 'var(--card)', border: '1px solid rgba(46,196,182,0.4)',
-          borderRadius: '12px', padding: '14px 20px',
-          fontSize: '14px', color: 'var(--teal)',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          display: 'flex', alignItems: 'center', gap: '10px',
-        }}>
-          ✓ {bagNotice}
-        </div>
-      )}
 
       {/* Filters */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '48px' }}>
@@ -93,7 +81,7 @@ export default function MerchClient({ products }: { products: Product[] }) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
         {filtered.map(p => {
           const lvlColor = getLevelColor(p.level_association)
-          const isInBag = bagItems.includes(p.id)
+          const isInBag = items.some(i => i.id === p.id)
           const catIcons: Record<string, string> = { backpack: '🎒', patch: '🔖', clothing: '👕', footwear: '👟' }
 
           return (
@@ -112,7 +100,6 @@ export default function MerchClient({ products }: { products: Product[] }) {
                   ? <img src={p.image_url} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   : <span style={{ filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.4))' }}>{catIcons[p.category] ?? '📦'}</span>
                 }
-                {/* Level badge */}
                 {p.level_association && (
                   <div style={{
                     position: 'absolute', top: '12px', left: '12px',
@@ -144,7 +131,6 @@ export default function MerchClient({ products }: { products: Product[] }) {
                   {(p.description ?? '').slice(0, 90)}{(p.description ?? '').length > 90 ? '...' : ''}
                 </p>
 
-                {/* Size options */}
                 {p.size_options && p.size_options.length > 0 && (
                   <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '16px' }}>
                     {p.size_options.slice(0, 6).map(s => (
@@ -173,7 +159,7 @@ export default function MerchClient({ products }: { products: Product[] }) {
                       cursor: 'pointer', transition: 'all 0.2s',
                     }}
                   >
-                    {isInBag ? '✓ Added' : 'Add to Bag'}
+                    {isInBag ? '✓ In Bag' : 'Add to Bag'}
                   </button>
                 </div>
               </div>
