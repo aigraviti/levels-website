@@ -35,6 +35,19 @@ export default function HomePage() {
   return (
     <div style={{ background: 'var(--bg)' }}>
 
+      {/* ── TEST DISCLAIMER BANNER ── */}
+      <div style={{
+        background: 'rgba(255,183,3,0.1)',
+        borderBottom: '1px solid rgba(255,183,3,0.25)',
+        padding: '10px var(--px)',
+        textAlign: 'center',
+        position: 'relative', zIndex: 99,
+      }}>
+        <p style={{ fontSize: '12px', color: 'var(--gold)', fontFamily: 'var(--font-mono)', letterSpacing: '1.5px', textTransform: 'uppercase' }}>
+          ⚠ This site is for demonstration and testing purposes only. No real events, purchases, or payments are active.
+        </p>
+      </div>
+
       {/* ── HERO ── */}
       <section style={{
         minHeight: '100vh',
