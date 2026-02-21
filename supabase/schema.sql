@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS products (
   stock_count int DEFAULT 100,
   size_options text[],
   colour_hex text,
-  image_url text,
   featured bool DEFAULT false,
   created_at timestamptz DEFAULT now()
 );
@@ -156,88 +155,88 @@ INSERT INTO events (title, date, city, venue, address, capacity, registered_coun
 
 -- ── SEED: PRODUCTS — BACKPACKS ───────────────────
 
-INSERT INTO products (name, description, category, level_association, price, colour_hex, image_url, featured) VALUES
+INSERT INTO products (name, description, category, level_association, price, colour_hex, featured) VALUES
 (
   'LEVELS Ruck 20L',
   'The everyday training backpack. 500D nylon, padded laptop sleeve, external hydration access, and the LEVELS logo in contrast stitching. Built for the athlete who is always preparing.',
-  'backpack', NULL, 16900, '#252530', '/images/products/ruck-20l.jpg', true
+  'backpack', NULL, 16900, '#252530', true
 ),
 (
   'LEVELS Ruck 30L Elite',
   'Built for the Elite athlete. Extra volume for event day gear, integrated sled-pull handle, reinforced base, and crimson accent hardware throughout.',
-  'backpack', 4, 21900, '#E63946', '/images/products/ruck-30l-elite.jpg', false
+  'backpack', 4, 21900, '#E63946', false
 ),
 (
   'LEVELS Apex Pack 35L',
   'The ultimate LEVELS carry. Reserved for Level 5 completers. Purple titanium zips, Apex embroidery, moisture-wicking back panel, and a lifetime warranty. Proof you reached the summit.',
-  'backpack', 5, 28900, '#8338EC', '/images/products/apex-pack-35l.jpg', false
+  'backpack', 5, 28900, '#8338EC', false
 );
 
 -- ── SEED: PRODUCTS — PATCHES ─────────────────────
 
-INSERT INTO products (name, description, category, level_association, price, colour_hex, image_url) VALUES
-('Foundation Patch — Level 01', 'Woven iron-on patch. Your first mark. Teal on black. 7cm × 7cm.', 'patch', 1, 1490, '#2EC4B6', '/images/products/patch-collection.jpg'),
-('Build Patch — Level 02', 'Woven iron-on patch. The builder''s mark. Steel blue on black. 7cm × 7cm.', 'patch', 2, 1490, '#457B9D', '/images/products/patch-collection.jpg'),
-('Surge Patch — Level 03', 'Woven iron-on patch. The surge begins. Amber gold on black. 7cm × 7cm.', 'patch', 3, 1490, '#FFB703', '/images/products/patch-collection.jpg'),
-('Elite Patch — Level 04', 'Woven iron-on patch. Elite status. Crimson on black. 7cm × 7cm.', 'patch', 4, 1490, '#E63946', '/images/products/patch-collection.jpg'),
-('Apex Patch — Level 05', 'Woven iron-on patch. The summit. Royal purple on black. 7cm × 7cm. Only for those who''ve reached the top.', 'patch', 5, 1490, '#8338EC', '/images/products/patch-collection.jpg');
+INSERT INTO products (name, description, category, level_association, price, colour_hex) VALUES
+('Foundation Patch — Level 01', 'Woven iron-on patch. Your first mark. Teal on black. 7cm × 7cm.', 'patch', 1, 1490, '#2EC4B6'),
+('Build Patch — Level 02', 'Woven iron-on patch. The builder''s mark. Steel blue on black. 7cm × 7cm.', 'patch', 2, 1490, '#457B9D'),
+('Surge Patch — Level 03', 'Woven iron-on patch. The surge begins. Amber gold on black. 7cm × 7cm.', 'patch', 3, 1490, '#FFB703'),
+('Elite Patch — Level 04', 'Woven iron-on patch. Elite status. Crimson on black. 7cm × 7cm.', 'patch', 4, 1490, '#E63946'),
+('Apex Patch — Level 05', 'Woven iron-on patch. The summit. Royal purple on black. 7cm × 7cm. Only for those who''ve reached the top.', 'patch', 5, 1490, '#8338EC');
 
 -- ── SEED: PRODUCTS — CLOTHING ────────────────────
 
-INSERT INTO products (name, description, category, level_association, price, size_options, colour_hex, image_url, featured) VALUES
+INSERT INTO products (name, description, category, level_association, price, size_options, colour_hex, featured) VALUES
 (
   'Foundation Tee — Level 01',
   'Lightweight technical tee in Foundation Teal. Moisture-wicking fabric, dropped hem, LEVELS 01 embroidery on chest.',
-  'clothing', 1, 5900, ARRAY['XS','S','M','L','XL','XXL'], '#2EC4B6', '/images/products/foundation-tee.jpg', false
+  'clothing', 1, 5900, ARRAY['XS','S','M','L','XL','XXL'], '#2EC4B6', false
 ),
 (
   'Build Tee — Level 02',
   'Steel Blue technical tee. Premium 200gsm pique fabric. LEVELS 02 BUILD printed across the back.',
-  'clothing', 2, 5900, ARRAY['XS','S','M','L','XL','XXL'], '#457B9D', '/images/products/build-tee.jpg', false
+  'clothing', 2, 5900, ARRAY['XS','S','M','L','XL','XXL'], '#457B9D', false
 ),
 (
   'Surge Hoodie — Level 03',
   'Amber gold midlayer hoodie. Heavyweight 400gsm French terry. SURGE printed in tonal letters across the chest.',
-  'clothing', 3, 11900, ARRAY['XS','S','M','L','XL','XXL'], '#FFB703', '/images/products/surge-hoodie.jpg', true
+  'clothing', 3, 11900, ARRAY['XS','S','M','L','XL','XXL'], '#FFB703', true
 ),
 (
   'Elite Performance Tee — Level 04',
   'Crimson red competition-grade tee. Ultra-light 140gsm performance fabric. LEVELS 04 ELITE on chest, station PRs on the back.',
-  'clothing', 4, 7900, ARRAY['XS','S','M','L','XL','XXL'], '#E63946', '/images/products/elite-performance-tee.jpg', true
+  'clothing', 4, 7900, ARRAY['XS','S','M','L','XL','XXL'], '#E63946', true
 ),
 (
   'Apex Hoodie — Level 05',
   'Royal purple heavyweight hoodie. Brushed inner fleece, embroidered APEX crown logo, Level 5 achievement date tag inside the collar. Limited availability.',
-  'clothing', 5, 14900, ARRAY['XS','S','M','L','XL','XXL'], '#8338EC', '/images/products/apex-hoodie.jpg', false
+  'clothing', 5, 14900, ARRAY['XS','S','M','L','XL','XXL'], '#8338EC', false
 ),
 (
   'LEVELS Core Shorts',
   'Technical training shorts for every level. 4-way stretch fabric, built-in liner, zip pocket, 7-inch inseam. Void Black.',
-  'clothing', NULL, 6900, ARRAY['XS','S','M','L','XL','XXL'], '#252530', '/images/products/core-shorts.jpg', false
+  'clothing', NULL, 6900, ARRAY['XS','S','M','L','XL','XXL'], '#252530', false
 ),
 (
   'LEVELS Event Singlet',
   'The official LEVELS competition singlet. Ultra-light 120gsm. Worn by thousands of athletes across all five levels.',
-  'clothing', NULL, 4900, ARRAY['XS','S','M','L','XL','XXL'], '#E63946', '/images/products/event-singlet.jpg', false
+  'clothing', NULL, 4900, ARRAY['XS','S','M','L','XL','XXL'], '#E63946', false
 );
 
 -- ── SEED: PRODUCTS — FOOTWEAR ────────────────────
 
-INSERT INTO products (name, description, category, level_association, price, size_options, colour_hex, image_url, featured) VALUES
+INSERT INTO products (name, description, category, level_association, price, size_options, colour_hex, featured) VALUES
 (
   'LEVELS Training Shoe',
   'The everyday training shoe built for the LEVELS athlete. Wide toe box, zero-drop heel, reinforced lateral support for sled movements.',
-  'footwear', NULL, 18900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#252530', '/images/products/training-shoe.jpg', true
+  'footwear', NULL, 18900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#252530', true
 ),
 (
   'LEVELS Ruck Boot',
   'When your training goes outside. Waterproof upper, Vibram outsole, ankle support, and the LEVELS logo in reflective print.',
-  'footwear', NULL, 22900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#3A3A4A', '/images/products/ruck-boot.jpg', false
+  'footwear', NULL, 22900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#3A3A4A', false
 ),
 (
   'LEVELS Apex Performance Trainer',
   'Purple colourway. Carbon fibre shank, race-last construction, explosive response foam. Only available to Apex completers.',
-  'footwear', 5, 25900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#8338EC', '/images/products/apex-trainer.jpg', false
+  'footwear', 5, 25900, ARRAY['7','7.5','8','8.5','9','9.5','10','10.5','11','11.5','12','13'], '#8338EC', false
 );
 
 -- ── SEED: RECOVERY LOUNGE PRODUCTS ───────────────

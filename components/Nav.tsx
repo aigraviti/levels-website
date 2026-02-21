@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -17,10 +17,13 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
+  const [dropdownOpen, setDropdownOpen] = useState(false)
   const [user, setUser] = useState<User | null>(null)
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const pathname = usePathname()
   const router = useRouter()
   const { count } = useCart()
+  const dropdownRef = useRef<HTMLLIElement>(null)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -28,17 +31,43 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => { setMenuOpen(false); setDropdownOpen(false) }, [pathname])
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+      if (data.user) fetchPhoto(data.user.id)
+    })
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
+      if (session?.user) fetchPhoto(session.user.id)
+      else setPhotoUrl(null)
     })
     return () => subscription.unsubscribe()
   }, [])
 
+  async function fetchPhoto(userId: string) {
+    const { data } = await supabase
+      .from('profiles')
+      .select('profile_photo_url')
+      .eq('id', userId)
+      .single()
+    if (data?.profile_photo_url) setPhotoUrl(data.profile_photo_url)
+  }
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
+
   async function handleSignOut() {
+    setDropdownOpen(false)
     await supabase.auth.signOut()
     router.push('/')
   }
@@ -117,36 +146,88 @@ export default function Nav() {
 
           {/* Auth */}
           {user ? (
-            <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Link href="/dashboard" style={{
-                display: 'flex', alignItems: 'center', gap: '8px',
-                textDecoration: 'none', color: 'var(--text-2)',
-                fontSize: '12px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase',
-                transition: 'color 0.2s',
-              }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-2)')}
+            <li ref={dropdownRef} style={{ position: 'relative' }}>
+              {/* Avatar button */}
+              <button
+                onClick={() => setDropdownOpen(o => !o)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '8px',
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '2px',
+                }}
+                aria-label="Account menu"
               >
-                <span style={{
-                  width: '28px', height: '28px', borderRadius: '50%',
-                  background: 'var(--gradient-hero)',
+                <div style={{
+                  width: '32px', height: '32px', borderRadius: '50%', flexShrink: 0,
+                  background: photoUrl ? 'transparent' : 'var(--gradient-hero)',
+                  border: `2px solid ${dropdownOpen ? 'var(--red)' : 'transparent'}`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '11px', fontWeight: 700, color: 'white', flexShrink: 0,
-                }}>{initials}</span>
-                Dashboard
-              </Link>
-              <button onClick={handleSignOut} style={{
-                background: 'none', border: '1px solid var(--border)', cursor: 'pointer',
-                color: 'var(--text-3)', fontSize: '11px', fontWeight: 600,
-                letterSpacing: '1px', textTransform: 'uppercase',
-                padding: '6px 12px', borderRadius: '6px', transition: 'all 0.2s',
-                fontFamily: 'var(--font-mono)',
-              }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--red)'; e.currentTarget.style.color = 'var(--red)' }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-3)' }}
-              >
-                Sign Out
+                  overflow: 'hidden', transition: 'border-color 0.2s',
+                  fontSize: '12px', fontWeight: 700, color: 'white',
+                }}>
+                  {photoUrl
+                    ? <img src={photoUrl} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    : initials
+                  }
+                </div>
+                <span style={{
+                  fontSize: '10px', color: 'var(--text-3)',
+                  transition: 'transform 0.2s',
+                  transform: dropdownOpen ? 'rotate(180deg)' : 'none',
+                  display: 'inline-block',
+                }}>▾</span>
               </button>
+
+              {/* Dropdown */}
+              {dropdownOpen && (
+                <div style={{
+                  position: 'absolute', top: 'calc(100% + 12px)', right: 0,
+                  background: 'rgba(14,14,20,0.98)', backdropFilter: 'blur(20px)',
+                  border: '1px solid var(--border)', borderRadius: '12px',
+                  padding: '8px', minWidth: '180px',
+                  boxShadow: '0 16px 48px rgba(0,0,0,0.5)',
+                  zIndex: 200,
+                }}>
+                  {/* User info */}
+                  <div style={{ padding: '8px 12px 12px', borderBottom: '1px solid var(--border)', marginBottom: '4px' }}>
+                    <p style={{ fontSize: '13px', fontWeight: 600, color: 'var(--text)', lineHeight: 1.3 }}>
+                      {user.user_metadata?.full_name ?? 'Athlete'}
+                    </p>
+                    <p style={{ fontSize: '11px', color: 'var(--text-3)', marginTop: '2px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {user.email}
+                    </p>
+                  </div>
+                  {[
+                    { href: '/dashboard', label: 'Dashboard' },
+                    { href: '/dashboard/settings', label: 'Settings' },
+                  ].map(item => (
+                    <Link key={item.href} href={item.href} style={{
+                      display: 'block', padding: '9px 12px', borderRadius: '7px',
+                      textDecoration: 'none', color: 'var(--text-2)',
+                      fontSize: '13px', fontWeight: 500, transition: 'all 0.15s',
+                    }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = 'var(--text)' }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--text-2)' }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                  <div style={{ borderTop: '1px solid var(--border)', marginTop: '4px', paddingTop: '4px' }}>
+                    <button onClick={handleSignOut} style={{
+                      display: 'block', width: '100%', textAlign: 'left',
+                      padding: '9px 12px', borderRadius: '7px',
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      color: 'var(--red)', fontSize: '13px', fontWeight: 500,
+                      fontFamily: 'var(--font-outfit)', transition: 'all 0.15s',
+                    }}
+                      onMouseEnter={e => (e.currentTarget.style.background = 'rgba(230,57,70,0.08)')}
+                      onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              )}
             </li>
           ) : (
             <li style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -229,6 +310,12 @@ export default function Nav() {
                 letterSpacing: '1.5px', textTransform: 'uppercase',
                 padding: '14px 0', borderBottom: '1px solid var(--border)',
               }}>Dashboard</Link>
+              <Link href="/dashboard/settings" style={{
+                color: 'var(--text-2)', textDecoration: 'none',
+                fontSize: '13px', fontWeight: 600,
+                letterSpacing: '1.5px', textTransform: 'uppercase',
+                padding: '14px 0', borderBottom: '1px solid var(--border)',
+              }}>Settings</Link>
               <button onClick={handleSignOut} style={{
                 background: 'none', border: 'none', cursor: 'pointer',
                 color: 'var(--red)', fontSize: '13px', fontWeight: 600,

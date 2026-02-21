@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { LEVEL_DATA, formatNZD, formatDate } from '@/lib/types'
+import { profileCompletion, isProfileReadyForEvent } from '@/lib/profile'
+import type { Profile } from '@/lib/profile'
 import Link from 'next/link'
 import type { User } from '@supabase/supabase-js'
 
@@ -71,17 +73,26 @@ function PercentileBadge({ percentile }: { percentile: number }) {
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState<Tab>('overview')
   const [perfRankView, setPerfRankView] = useState<Record<string, 'overall' | 'age_group' | 'gender'>>({})
   const router = useRouter()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
+    async function load() {
+      const { data } = await supabase.auth.getUser()
       if (!data.user) { router.push('/login'); return }
       setUser(data.user)
+      const { data: prof } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', data.user.id)
+        .single()
+      if (prof) setProfile(prof as Profile)
       setLoading(false)
-    })
+    }
+    load()
   }, [router])
 
   if (loading) {
@@ -95,7 +106,9 @@ export default function DashboardPage() {
     )
   }
 
-  const firstName = user?.user_metadata?.full_name?.split(' ')[0] ?? user?.email?.split('@')[0] ?? 'Athlete'
+  const firstName = profile?.full_name?.split(' ')[0] ?? user?.user_metadata?.full_name?.split(' ')[0] ?? user?.email?.split('@')[0] ?? 'Athlete'
+  const completion = profileCompletion(profile)
+  const readyForEvent = isProfileReadyForEvent(profile)
   const currentLevel = MOCK_PERFORMANCES.length > 0 ? MOCK_PERFORMANCES[0].level_earned : 0
   const levelInfo = LEVEL_DATA.find(l => l.numInt === currentLevel)
 
@@ -122,17 +135,32 @@ export default function DashboardPage() {
               <span className="text-gradient">{firstName}</span>
             </h1>
           </div>
-          {levelInfo && (
-            <div style={{
-              padding: '16px 24px', borderRadius: '14px',
-              background: levelInfo.color + '12', border: `1px solid ${levelInfo.color}40`,
-              textAlign: 'center', minWidth: '120px',
-            }}>
-              <div style={{ fontSize: '10px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Current Level</div>
-              <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '48px', color: levelInfo.color, lineHeight: 1 }}>{levelInfo.num}</div>
-              <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', letterSpacing: '2px', color: levelInfo.color, marginTop: '4px', textTransform: 'uppercase' }}>{levelInfo.name}</div>
-            </div>
-          )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <Link href="/dashboard/settings" style={{
+              display: 'flex', alignItems: 'center', gap: '6px',
+              padding: '9px 16px', borderRadius: '8px',
+              border: '1px solid var(--border)', textDecoration: 'none',
+              color: 'var(--text-3)', fontSize: '12px', fontWeight: 600,
+              letterSpacing: '1px', textTransform: 'uppercase',
+              fontFamily: 'var(--font-mono)', transition: 'all 0.2s',
+            }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--border-hover)'; e.currentTarget.style.color = 'var(--text)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-3)' }}
+            >
+              ⚙ Settings
+            </Link>
+            {levelInfo && (
+              <div style={{
+                padding: '16px 24px', borderRadius: '14px',
+                background: levelInfo.color + '12', border: `1px solid ${levelInfo.color}40`,
+                textAlign: 'center', minWidth: '120px',
+              }}>
+                <div style={{ fontSize: '10px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '6px' }}>Current Level</div>
+                <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '48px', color: levelInfo.color, lineHeight: 1 }}>{levelInfo.num}</div>
+                <div style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', letterSpacing: '2px', color: levelInfo.color, marginTop: '4px', textTransform: 'uppercase' }}>{levelInfo.name}</div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Tabs */}
@@ -156,6 +184,31 @@ export default function DashboardPage() {
       {/* Tab content */}
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px var(--px) 100px' }}>
 
+        {/* Profile completion banner */}
+        {completion < 80 && (
+          <div style={{
+            marginBottom: '32px', padding: '16px 24px',
+            borderRadius: '12px', display: 'flex',
+            alignItems: 'center', gap: '16px', flexWrap: 'wrap',
+            background: !readyForEvent ? 'rgba(230,57,70,0.06)' : 'rgba(255,183,3,0.06)',
+            border: `1px solid ${!readyForEvent ? 'rgba(230,57,70,0.2)' : 'rgba(255,183,3,0.2)'}`,
+          }}>
+            <div style={{ flex: 1, minWidth: '200px' }}>
+              <p style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
+                {!readyForEvent ? 'Complete your profile to register for events' : 'Your profile is almost complete'}
+              </p>
+              <p style={{ fontSize: '13px', color: 'var(--text-3)', lineHeight: 1.5 }}>
+                {!readyForEvent
+                  ? 'Add your emergency contact, date of birth, and gender — required for event entry.'
+                  : `${completion}% complete — add a photo and a few more details.`}
+              </p>
+            </div>
+            <Link href="/dashboard/settings" className="btn-primary" style={{ fontSize: '12px', padding: '10px 20px', whiteSpace: 'nowrap' }}>
+              Complete Profile →
+            </Link>
+          </div>
+        )}
+
         {/* ── OVERVIEW ── */}
         {tab === 'overview' && (
           <div>
@@ -165,13 +218,26 @@ export default function DashboardPage() {
                 { label: 'Current Level', value: levelInfo?.num ?? '—', sub: levelInfo?.name ?? 'Not yet competed', color: levelInfo?.color ?? 'var(--text-3)' },
                 { label: 'Events Attended', value: String(MOCK_PERFORMANCES.length), sub: 'Career total', color: 'var(--teal)' },
                 { label: 'Upcoming Events', value: String(MOCK_EVENTS.length), sub: 'Registered', color: 'var(--gold)' },
-                { label: 'Total Spent', value: formatNZD(MOCK_PURCHASES.reduce((s, p) => s + p.amount, 0)), sub: 'All time', color: 'var(--blue)' },
-              ].map(s => (
-                <div key={s.label} className="card" style={{ padding: '24px' }}>
-                  <div style={{ fontSize: '10px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px' }}>{s.label}</div>
-                  <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '36px', letterSpacing: '2px', color: s.color, lineHeight: 1, marginBottom: '6px' }}>{s.value}</div>
-                  <div style={{ fontSize: '12px', color: 'var(--text-3)' }}>{s.sub}</div>
-                </div>
+                { label: 'Profile Complete', value: `${completion}%`, sub: completion >= 80 ? 'Looking good!' : 'Tap to finish', color: completion >= 80 ? 'var(--teal)' : completion >= 50 ? 'var(--gold)' : 'var(--red)' },
+              ].map((s, i) => (
+                i === 3 ? (
+                  <Link key={s.label} href="/dashboard/settings" style={{ textDecoration: 'none' }}>
+                    <div className="card" style={{ padding: '24px', cursor: 'pointer', transition: 'border-color 0.2s' }}
+                      onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--border-hover)')}
+                      onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
+                    >
+                      <div style={{ fontSize: '10px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px' }}>{s.label}</div>
+                      <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '36px', letterSpacing: '2px', color: s.color, lineHeight: 1, marginBottom: '6px' }}>{s.value}</div>
+                      <div style={{ fontSize: '12px', color: 'var(--text-3)' }}>{s.sub}</div>
+                    </div>
+                  </Link>
+                ) : (
+                  <div key={s.label} className="card" style={{ padding: '24px' }}>
+                    <div style={{ fontSize: '10px', color: 'var(--text-3)', fontFamily: 'var(--font-mono)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '12px' }}>{s.label}</div>
+                    <div style={{ fontFamily: 'var(--font-bebas)', fontSize: '36px', letterSpacing: '2px', color: s.color, lineHeight: 1, marginBottom: '6px' }}>{s.value}</div>
+                    <div style={{ fontSize: '12px', color: 'var(--text-3)' }}>{s.sub}</div>
+                  </div>
+                )
               ))}
             </div>
 
