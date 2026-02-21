@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { LEVEL_DATA } from '@/lib/types'
 
 const features = [
@@ -69,6 +70,33 @@ export default function HomePage() {
           background: 'radial-gradient(circle, rgba(46,196,182,0.12) 0%, transparent 70%)',
           animationDelay: '3s', pointerEvents: 'none',
         }} />
+
+        {/* Logo */}
+        <div className="animate-fade-up" style={{
+          position: 'relative', zIndex: 1, marginBottom: '28px',
+        }}>
+          <div style={{
+            position: 'absolute', top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '280px', height: '280px', borderRadius: '50%',
+            background: 'radial-gradient(circle, rgba(230,57,70,0.15) 0%, rgba(46,196,182,0.08) 40%, transparent 70%)',
+            filter: 'blur(30px)', pointerEvents: 'none',
+          }} />
+          <Image
+            src="/images/levels-logo.png"
+            alt="LEVELS Logo"
+            width={200}
+            height={200}
+            priority
+            style={{
+              width: 'clamp(120px, 20vw, 200px)',
+              height: 'auto',
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 0 40px rgba(230,57,70,0.3)) drop-shadow(0 0 80px rgba(46,196,182,0.15))',
+              position: 'relative',
+            }}
+          />
+        </div>
 
         <div className="animate-fade-up" style={{
           display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -165,10 +193,10 @@ export default function HomePage() {
           Five levels. Published standards. No shortcuts. You&apos;re a Level 3 athlete because you hit every benchmark at Level 3 — not because you showed up.
         </p>
 
-        <div style={{ overflowX: 'auto', marginBottom: '48px', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}>
+        <div style={{ overflowX: 'auto', marginBottom: '48px', WebkitOverflowScrolling: 'touch', paddingBottom: '4px' } as React.CSSProperties}>
           <div style={{
             display: 'flex', borderRadius: '20px', overflow: 'hidden',
-            border: '1px solid var(--border)', minWidth: '560px',
+            border: '1px solid var(--border)', minWidth: '650px',
           }}>
             {LEVEL_DATA.map((lvl, i) => (
               <div key={lvl.num}
