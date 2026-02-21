@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# MCP config (contains API keys - never commit)
+.mcp.json
+
+# Supabase temp files
+supabase/.temp/
