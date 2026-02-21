@@ -83,17 +83,20 @@ export default function HomePage() {
             filter: 'blur(40px)', pointerEvents: 'none',
           }} />
           <Image
-            src="/images/updated landing page logo v2.png"
-            alt="LEVELS Logo"
-            width={1024}
-            height={1024}
+            src="/images/Level up image.png"
+            alt="LEVELS – Level Up"
+            width={1456}
+            height={816}
             priority
             style={{
-              width: 'clamp(300px, 75vw, 900px)',
+              width: 'clamp(340px, 80vw, 960px)',
               height: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 24px rgba(230,57,70,0.35)) drop-shadow(0 0 48px rgba(46,196,182,0.18))',
+              filter: 'drop-shadow(0 0 30px rgba(230,57,70,0.4)) drop-shadow(0 0 60px rgba(230,57,70,0.15))',
               position: 'relative',
+              WebkitMaskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, black 40%, transparent 100%)',
+              maskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, black 40%, transparent 100%)',
+              borderRadius: '24px',
             }}
           />
         </div>
@@ -117,7 +120,6 @@ export default function HomePage() {
           letterSpacing: '8px',
           position: 'relative', zIndex: 1,
           animationDelay: '0.1s',
-          display: 'none',
         }}>LEVELS</h1>
 
         <p className="animate-fade-up" style={{
