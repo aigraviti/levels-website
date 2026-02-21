@@ -73,26 +73,26 @@ export default function HomePage() {
 
         {/* Logo */}
         <div className="animate-fade-up" style={{
-          position: 'relative', zIndex: 1, marginBottom: '28px',
+          position: 'relative', zIndex: 1, marginBottom: '36px',
         }}>
           <div style={{
             position: 'absolute', top: '50%', left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '280px', height: '280px', borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(230,57,70,0.15) 0%, rgba(46,196,182,0.08) 40%, transparent 70%)',
-            filter: 'blur(30px)', pointerEvents: 'none',
+            width: '400px', height: '200px', borderRadius: '50%',
+            background: 'radial-gradient(ellipse, rgba(230,57,70,0.12) 0%, rgba(46,196,182,0.06) 50%, transparent 75%)',
+            filter: 'blur(40px)', pointerEvents: 'none',
           }} />
           <Image
-            src="/images/levels-logo.png"
+            src="/images/Levels landing page Logo.png"
             alt="LEVELS Logo"
-            width={200}
-            height={200}
+            width={500}
+            height={150}
             priority
             style={{
-              width: 'clamp(120px, 20vw, 200px)',
+              width: 'clamp(200px, 40vw, 500px)',
               height: 'auto',
               objectFit: 'contain',
-              filter: 'drop-shadow(0 0 40px rgba(230,57,70,0.3)) drop-shadow(0 0 80px rgba(46,196,182,0.15))',
+              filter: 'drop-shadow(0 0 30px rgba(230,57,70,0.25)) drop-shadow(0 0 60px rgba(46,196,182,0.12))',
               position: 'relative',
             }}
           />
