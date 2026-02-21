@@ -83,7 +83,7 @@ export default function HomePage() {
             filter: 'blur(40px)', pointerEvents: 'none',
           }} />
           <Image
-            src="/images/updated landing page logo.png"
+            src="/images/updated landing page logo v2.png"
             alt="LEVELS Logo"
             width={1024}
             height={1024}
